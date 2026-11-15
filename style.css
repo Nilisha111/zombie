@@ -80,26 +80,53 @@
 ========================= */
 
 .hero {
+  font-size:60px;
+  font-weight:900;
+  letter-spacing:1px;
   text-align: center;
   margin-bottom: 28px;
-  color:var(--deep-green);
+  color: #30391e;
 }
+
 
 .hero-icon {
   font-size: 45px;
-  animation: heartbeat 2s infinite;
+  animation: heartbeat 5s infinite;
 }
-
 @keyframes heartbeat {
-  0%, 100% {
-    transform: scale(1);
+  20%{
+    transform: scale(0.3);
   }
 
-  50% {
-    transform: scale(1.15);
+   20%{
+    transform: scale(1.8);
   }
 }
 
+.hero span{
+  font-family:'Creepster', cursive;
+  color:#8cf423;
+  position:relative;
+  display:Inline-block;
+  letter-spacing:4px;
+  
+  text-shadow:
+
+  0 0 5px #2e3e14,
+  0 0 15px #346a2a,
+  0 0 30px #386b2f;
+  animation: flicker 3.5s infinite;
+}
+@keyframes flicker{
+  0%, 50%, 92%, 100%{
+    opacity:1;
+    text-shadow:0 0 5px #5b6d36, 0 0 15px #99de54;
+  }
+  91%{
+    opacity:0.8;
+    text-shadow:3px 0 red, -3px 0 #39ff14;
+  }
+}
 .hero h1 {
   font-family: 'Quicksand', sans-serif;
   font-size: clamp(34px, 8vw, 48px);
