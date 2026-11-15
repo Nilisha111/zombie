@@ -12,10 +12,17 @@
       rel="stylesheet"
     />
 <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-
-
-
     <script src="script.js" defer></script>
+    <script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="skull.js"></script>
+
   </head>
 
   <body>
@@ -37,11 +44,14 @@
         <span>🧟‍♂️</span> A QUIZ TO TEST YOUR SURVIVAL SKILL<span>🧟‍♂️</span>
       </div>
       <header class="hero">
-        <div class="hero-icon">🧟‍♀️</div>
+        
         <h1>Will You Survive <span>Zombie</span> Apocalypse?
        
         </h1>
       </header>
+<div id="skull-container">
+    <canvas id="skull-canvas"></canvas>
+</div>
 
     </main>
   </body>
