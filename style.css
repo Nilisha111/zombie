@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   padding: 0;
@@ -46,11 +48,12 @@
 }
 
 .top-label {
+  font-family:'UnifrakturCook';
   text-align: center;
-  color: var(--deep-green);
+  color: rgb(15, 37, 15);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   margin-bottom: 20px;
   margin-top:20px;
 }
@@ -61,21 +64,24 @@
 /* =========================
    4. HERO SECTION
 ========================= */
-
-.hero {
-  font-size:60px;
-  font-weight:900;
+.hero{
+  margin-top: 150px;
+}
+.hero h1{
+  font-family:'UnifrakturCook', cursive !important;
+  font-size:55px;
+  font-weight:normal;
   letter-spacing:1px;
   text-align: center;
   margin-bottom: 28px;
-  color: #30391e;
-  margin-top: 140px;
+  color: #212812;
+  
 }
 
 
 
 
-.hero span{
+.hero h1 span{
   font-family:'Creepster', cursive;
   color:#8cf423;
   position:relative;
@@ -130,4 +136,84 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
+}
+.welcome-box {
+width:80%;
+max-width:400px;
+margin:60px auto;
+padding: 35px 25px;
+text-align:center;
+background-color: var(--deep-green);
+border: 1px solid red;
+border-radius: 15px;
+box-shadow: 0 0 20px red,
+            0 0 30px red,
+            0 0 60px var(--lime-green);
+
+}
+.welcome-box h2 {
+  font-family: 'Creepster', cursive;
+  font-size: 28px;
+  color: var(--lime-green);
+  margin-bottom: 15px;
+}
+.welcome-box p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: var(--pale-green);
+  margin-bottom: 25px;
+}
+.welcome-box button {
+  font-family: 'Creepster', cursive;
+  font-size: 18px;
+  color: var(--deep-green);
+  background-color: var(--lime-green);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+.welcome-box button:hover {
+  background-color: red;
+  color: var(--lime-green);
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow:0 0 15px var(--lime-green),
+             0 0 30px var(--lime-green);
+          ;
+}
+.monster-row{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  opacity:0.8;
+  margin-bottom:20px;
+  font-size: 30px;
+  
+}
+.quiz-info {
+font-size: 14px;
+opacity: 0.7;
+}
+.welcome-box .warning{
+  font-size:12px;
+  opacity: 0.6;
+  font-style:italic;
+  margin-top:16px;
+}
+@keyframes float{
+  0%, 100% {transform: translateY(0);}
+  50% {transform: translateY(-8px);}
+}
+.monster-row span{
+  animation: float 3s ease-in-out infinite;
+}
+.monster-row span:nth-child(2){animation-delay: 0.5s;}
+.monster-row span:nth-child(3){animation-delay: 1s;}
+.monster-row span:nth-child(4){animation-delay: 1.5s;}
+.monster-row:hover{
+  transform: scale(1.2);
+  transition: transform 0.5s ease;
 }

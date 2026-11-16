@@ -136,13 +136,30 @@ function animate() {
     if (bat) {
 
         // Horizontal flying movement
-        bat.position.x = Math.sin(time * 0.7) * 4;
+        //bat.position.x = Math.sin(time * 0.7) * 4;
 
         // Natural flying movement
-        bat.position.y = 0.8 + Math.sin(time * 2) * 0.4;
+        //bat.position.y = 0.8 + Math.sin(time * 2) * 0.4;
 
         // Slight tilt while flying
-        bat.rotation.z = Math.sin(time * 0.7) * 0.15;
+        //bat.rotation.z = Math.sin(time * 0.7) * 0.15;
+
+// Horizontal flying movement
+const speed = 0.7;
+
+bat.position.x = Math.sin(time * speed) * 4;
+
+// Natural flying movement
+bat.position.y = 0.8 + Math.sin(time * 2) * 0.4;
+
+// Detect flying direction
+const direction = Math.cos(time * speed);
+
+// Turn bat around
+bat.rotation.y = direction < 0 ? Math.PI : 0;
+
+// Slight banking movement
+bat.rotation.z = Math.sin(time * speed) * 0.15;
 
     }
 
