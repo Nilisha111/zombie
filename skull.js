@@ -46,7 +46,7 @@ function createGlowingEye(x, y, z) {
     const eyeGeometry = new THREE.SphereGeometry(0.055, 32, 32);
 
     const eyeMaterial = new THREE.MeshBasicMaterial({
-        color: 0x39ff14
+        color: 0xff0000
     });
 
     const eye = new THREE.Mesh(eyeGeometry, eyeMaterial);
@@ -56,7 +56,7 @@ function createGlowingEye(x, y, z) {
     const innerGlow = new THREE.Mesh(
         new THREE.SphereGeometry(0.09, 32, 32),
         new THREE.MeshBasicMaterial({
-            color: 0x39ff14,
+            color: 0xff0000,
             transparent: true,
             opacity: 0.35,
             depthWrite: false
@@ -69,7 +69,7 @@ function createGlowingEye(x, y, z) {
     const outerGlow = new THREE.Mesh(
         new THREE.SphereGeometry(0.15, 32, 32),
         new THREE.MeshBasicMaterial({
-            color: 0x39ff14,
+            color: 0xff0000,
             transparent: true,
             opacity: 0.12,
             depthWrite: false
