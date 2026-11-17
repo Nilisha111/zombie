@@ -23,6 +23,7 @@
         }
       }
     </script>
+    <script type="module" src="dragon.js"></script>
     <script type="module" src="skull.js"></script>
     <script type="module" src="bat.js"></script>
   </head>
@@ -66,25 +67,39 @@
     </div>
     </div>
     
-    <section id="quiz" hidden>
-    <video class="background-cloud" autoplay muted loop playsinline>
-      <source src="accessories/cloud.mp4" type="video/mp4" />
-    </video>
-    <p id="question-number"></p>
+  <section id="quiz" hidden>
 
-    <div class="progress-bar">
+  <video class="background-cloud" autoplay muted loop playsinline>
+    <source src="accessories/cloud.mp4" type="video/mp4" />
+  </video>
+
+  <div class="quiz-layout">
+
+    <div class="quiz-box">
+
+      <p id="question-number"></p>
+
+      <div class="progress-bar">
         <div id="progress"></div>
+      </div>
+
+      <h2 id="question-text"></h2>
+
+      <div id="answer-options"></div>
+
+      <button id="next-btn" disabled>
+        Next Question
+      </button>
+
     </div>
 
-    <h2 id="question-text"></h2>
+    <div id="dragon-container">
+      <canvas id="dragon-canvas"></canvas>
+    </div>
 
-    <div id="answer-options"></div>
+  </div>
 
-    <button id="next-btn" disabled>
-        Next Question
-    </button>
-
-    </section>
+</section>
 
  
     </main>
