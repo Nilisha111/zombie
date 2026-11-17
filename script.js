@@ -6,7 +6,10 @@ document.addEventListener("click", () => {
   clickSound.currentTime = 0;
   clickSound.play();
 });
+//const music = new Audio("accessories/akatsuki.mp3");
 
+//music.loop = true;
+//music.volume = 0.3;
 
 const intro = document.getElementById("intro");
 const quiz = document.getElementById("quiz");
@@ -23,6 +26,8 @@ let answering = false;
 
 // Start quiz
 startBtn.addEventListener("click", function () {
+    music.pause();
+music.currentTime = 0;
     intro.hidden = true;
     quiz.hidden = false;
 
@@ -150,4 +155,10 @@ function showResult() {
 
     answerOptions.appendChild(result);
 }
+const music = new Audio("accessories/akatsuki.mp3");
 
+music.loop = true;
+
+music.play()
+    .then(() => console.log("Music is playing!"))
+    .catch(error => console.log("Audio error:", error));
