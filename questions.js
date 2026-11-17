@@ -1,4 +1,23 @@
+const clickSound = new Audio("accessories/akatsuki.mp3");
 
+clickSound.volume = 0.3;
+clickSound.playbackRate = 0.9;
+clickSound.preload = "auto";
+clickSound.loop=true;
+
+// Play sound when the page loads
+window.addEventListener("load", () => {
+  clickSound.currentTime = 0;
+  clickSound.play();
+});
+
+// Play sound only when a link is clicked
+document.querySelectorAll("#intro a").forEach(link => {
+  link.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+  });
+  });
 const questions = [
   {
     question: "1. What if you woke up tomorrow and discovered that nobody could lie to you anymore?",

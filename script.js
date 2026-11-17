@@ -1,3 +1,12 @@
+const clickSound = new Audio("accessories/click.wav");
+clickSound.volume = 0.5;
+clickSound.preload = "auto";
+clickSound.playbackRate=0.7;
+document.addEventListener("click", () => {
+  clickSound.currentTime = 0;
+  clickSound.play();
+});
+
 
 const intro = document.getElementById("intro");
 const quiz = document.getElementById("quiz");
