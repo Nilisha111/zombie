@@ -1,16 +1,16 @@
 const clickSound = new Audio("accessories/click.wav");
 clickSound.volume = 0.5;
 clickSound.preload = "auto";
-clickSound.playbackRate=0.7;
+clickSound.playbackRate = 0.7;
 document.addEventListener("click", () => {
   clickSound.currentTime = 0;
   clickSound.play();
+  
 });
-//const music = new Audio("accessories/akatsuki.mp3");
 
-//music.loop = true;
-//music.volume = 0.3;
-
+const music = new Audio("accessories/akatsuki-pain.mp3");
+music.volume = 0.3;
+music.loop=true;
 const intro = document.getElementById("intro");
 const quiz = document.getElementById("quiz");
 const startBtn = document.getElementById("start-btn");
@@ -26,139 +26,129 @@ let answering = false;
 
 // Start quiz
 startBtn.addEventListener("click", function () {
-    music.pause();
-music.currentTime = 0;
-    intro.hidden = true;
-    quiz.hidden = false;
+  music.currentTime = 0;
+  music
+    .play()
+    .then(() => console.log("Music started!"))
+    .catch((error) => console.log("Music error:", error));
 
-    currentQuestionIndex = 0;
-    answering = false;
+  intro.hidden = true;
+  quiz.hidden = false;
 
-    // Reset scores
-    scores.vampire = 0;
-    scores.werewolf = 0;
-    scores.witch = 0;
-    scores.siren = 0;
+  currentQuestionIndex = 0;
+  answering = false;
 
-    // Hide Next Question button
-    nextBtn.hidden = true;
+  // Reset scores
+  scores.vampire = 0;
+  scores.werewolf = 0;
+  scores.witch = 0;
+  scores.siren = 0;
 
-    showQuestion();
+  // Hide Next Question button
+  nextBtn.hidden = true;
+
+  showQuestion();
 });
 
 // Display question
 function showQuestion() {
-    const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
 
-    questionNumber.textContent =
-        `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+  questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
 
-    questionText.textContent = currentQuestion.question;
+  questionText.textContent = currentQuestion.question;
 
-    answerOptions.innerHTML = "";
-    answerOptions.classList.toggle(
-  "image-options",
-  currentQuestion.options.some(option => option.image)
-);
+  answerOptions.innerHTML = "";
+  answerOptions.classList.toggle(
+    "image-options",
+    currentQuestion.options.some((option) => option.image),
+  );
 
+  answering = false;
 
-    answering = false;
+  // Update progress bar
+  progress.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
 
-    // Update progress bar
-    progress.style.width =
-        `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+  // Display answer options
+  currentQuestion.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.classList.add("answer-option");
 
-    // Display answer options
-    currentQuestion.options.forEach((option) => {
+    // Display image if available
+    if (option.image) {
+      const image = document.createElement("img");
 
-        const button = document.createElement("button");
-        button.classList.add("answer-option");
+      image.src = option.image;
+      image.alt = option.text;
+      image.classList.add("answer-image");
 
-        // Display image if available
-        if (option.image) {
-            const image = document.createElement("img");
+      button.appendChild(image);
+    }
 
-            image.src = option.image;
-            image.alt = option.text;
-            image.classList.add("answer-image");
+    const text = document.createElement("span");
+    text.textContent = option.text;
 
-            button.appendChild(image);
+    button.appendChild(text);
+
+    // Automatically move to next question
+    button.addEventListener("click", function () {
+      if (answering) return;
+
+      answering = true;
+
+      // Highlight selected answer
+      button.classList.add("selected");
+
+      // Prevent multiple selections
+      document.querySelectorAll(".answer-option").forEach((btn) => {
+        btn.disabled = true;
+      });
+
+      // Calculate score
+      calculateScore(option);
+
+      // Wait briefly before moving forward
+      setTimeout(function () {
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+          showQuestion();
+        } else {
+          showResult();
         }
-
-        const text = document.createElement("span");
-        text.textContent = option.text;
-
-        button.appendChild(text);
-
-        // Automatically move to next question
-        button.addEventListener("click", function () {
-
-            if (answering) return;
-
-            answering = true;
-
-            // Highlight selected answer
-            button.classList.add("selected");
-
-            // Prevent multiple selections
-            document.querySelectorAll(".answer-option").forEach(btn => {
-                btn.disabled = true;
-            });
-
-            // Calculate score
-            calculateScore(option);
-
-            // Wait briefly before moving forward
-            setTimeout(function () {
-
-                currentQuestionIndex++;
-
-                if (currentQuestionIndex < questions.length) {
-                    showQuestion();
-                } else {
-                    showResult();
-                }
-
-            }, 350);
-        });
-
-        answerOptions.appendChild(button);
+      }, 350);
     });
+
+    answerOptions.appendChild(button);
+  });
 }
 
 // Display final result
 function showResult() {
-    questionNumber.textContent = "YOUR DARK SIDE REVEALED";
+  questionNumber.textContent = "YOUR DARK SIDE REVEALED";
 
-    questionText.textContent = "Your Monster Personality Is...";
+  questionText.textContent = "Your Monster Personality Is...";
 
-    answerOptions.innerHTML = "";
+  answerOptions.innerHTML = "";
 
-    progress.style.width = "100%";
+  progress.style.width = "100%";
 
-    nextBtn.hidden = true;
+  nextBtn.hidden = true;
 
-    const winners = getResult();
+  const winners = getResult();
 
-    const resultNames = {
-        vampire: "Vampire 🧛🏼‍♀️",
-        werewolf: "Werewolf 🐺",
-        witch: "Witch 🧙🏼‍♀️",
-        siren: "Siren 🧜🏾‍♀️"
-    };
+  const resultNames = {
+    vampire: "Vampire 🧛🏼‍♀️",
+    werewolf: "Werewolf 🐺",
+    witch: "Witch 🧙🏼‍♀️",
+    siren: "Siren 🧜🏾‍♀️",
+  };
 
-    const result = document.createElement("h2");
+  const result = document.createElement("h2");
 
-    result.textContent = winners
-        .map(monster => resultNames[monster])
-        .join(" & ");
+  result.textContent = winners
+    .map((monster) => resultNames[monster])
+    .join(" & ");
 
-    answerOptions.appendChild(result);
+  answerOptions.appendChild(result);
 }
-const music = new Audio("accessories/akatsuki.mp3");
-
-music.loop = true;
-
-music.play()
-    .then(() => console.log("Music is playing!"))
-    .catch(error => console.log("Audio error:", error));
