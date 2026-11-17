@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
 
-    <script src="script.js" defer></script>
+    
     <script type="importmap">
       {
         "imports": {
@@ -27,12 +27,14 @@
     <script type="module" src="bat.js"></script>
   </head>
 
-  <body><div id="intro">
+  <body>
+    
+    <div id="intro">
     <video class="background-video" autoplay muted loop playsinline>
       <source src="accessories/zombiee.mp4" type="video/mp4" />
     </video>
 
-    <main class="container">
+    <div class="container">
       <div class="top-label">
         <span>🧛🏼‍♀️</span>A PERSONALITY QUIZ<span>🧛🏼‍♀️</span>
       </div>
@@ -44,7 +46,7 @@
       </header>
       
       <canvas id="bat-canvas"></canvas>
-    </main>
+    </div>
     <div class="welcome-box">
       <h2>Ready to discover your dark side?</h2>
       <p>
@@ -54,17 +56,39 @@
       <div class="monster-row">
         <span class="vampire">🧛🏼‍♀️</span>
         <span class="wolf">🐺</span>
-        <span class="kichkandi">🧙🏼‍♀️</span>
-        <span class="zombie">🧟‍♀️</span>
+        <span class="witch">🧙🏼‍♀️</span>
+        <span class="siren">🧜🏾‍♀️</span>
       </div>
       <p class="quiz-info">Only 20 Questions will unveil your trueself 😈</p>
-      <button>START QUIZ 🎃</button>
+      <button id="start-btn">START QUIZ 🎃</button>
 
       <p class="warning">⚠️ Warning: Results may not satisfy you ⚠️</p>
     </div>
     </div>
-    <div id="quiz" class="hidden">
-      <h2>Question 1</h2>
+    
+    <section id="quiz" hidden>
+    <video class="background-cloud" autoplay muted loop playsinline>
+      <source src="accessories/cloud.mp4" type="video/mp4" />
+    </video>
+    <p id="question-number"></p>
+
+    <div class="progress-bar">
+        <div id="progress"></div>
     </div>
+
+    <h2 id="question-text"></h2>
+
+    <div id="answer-options"></div>
+
+    <button id="next-btn" disabled>
+        Next Question
+    </button>
+
+    </section>
+
+ 
+    </main>
+    <script src="questions.js"></script>
+<script src="script.js" defer></script>
   </body>
 </html>
