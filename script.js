@@ -1,16 +1,95 @@
+
 const clickSound = new Audio("accessories/click.wav");
 clickSound.volume = 0.5;
 clickSound.preload = "auto";
 clickSound.playbackRate = 0.7;
+
 document.addEventListener("click", () => {
   clickSound.currentTime = 0;
   clickSound.play();
-  
 });
 
-const music = new Audio("accessories/akatsuki-pain.mp3");
+
+// First music
+const music = new Audio("accessories/akatsukii.mp3");
 music.volume = 0.3;
-music.loop=true;
+music.loop = false;
+
+
+// Second music
+const backgroundMusic = new Audio("accessories/sound.mp3");
+backgroundMusic.volume = 0;
+backgroundMusic.loop = true;
+backgroundMusic.preload = "auto";
+
+const secondMusicStart = 5; // Skip first 5 seconds
+const crossfadeDuration = 6; // Crossfade lasts 4 seconds
+
+let crossfadeStarted = false;
+let fadeInterval = null;
+
+
+// Crossfade function
+function crossfadeMusic() {
+  if (crossfadeStarted) return;
+  crossfadeStarted = true;
+
+  // Stop any previous fade
+  if (fadeInterval) {
+    clearInterval(fadeInterval);
+  }
+
+  const fadeDurationMs = crossfadeDuration * 1000;
+  const startTime = Date.now();
+
+  // Start the second music
+  backgroundMusic.currentTime = secondMusicStart;
+
+  backgroundMusic.play()
+    .then(() => console.log("Second music started!"))
+    .catch(error => console.log("Second music error:", error));
+
+  const firstVolume = 0.3;
+  const secondVolume = 0.3;
+
+  fadeInterval = setInterval(() => {
+    const progress = Math.min(
+      (Date.now() - startTime) / fadeDurationMs,
+      1
+    );
+
+    // Fade first song out
+    music.volume = firstVolume * (1 - progress);
+
+    // Fade second song in
+    backgroundMusic.volume = secondVolume * progress;
+
+    // Finish crossfade
+    if (progress >= 1) {
+      clearInterval(fadeInterval);
+      fadeInterval = null;
+
+      music.pause();
+      music.volume = firstVolume;
+
+      backgroundMusic.volume = secondVolume;
+
+      console.log("Crossfade complete!");
+    }
+  }, 50);
+}
+
+
+// Detect when the first song is almost finished
+music.addEventListener("timeupdate", () => {
+  if (!crossfadeStarted && music.duration) {
+    if (music.currentTime >= music.duration - crossfadeDuration) {
+      crossfadeMusic();
+    }
+  }
+});
+
+
 const intro = document.getElementById("intro");
 const quiz = document.getElementById("quiz");
 const startBtn = document.getElementById("start-btn");
@@ -24,12 +103,32 @@ const progress = document.getElementById("progress");
 let currentQuestionIndex = 0;
 let answering = false;
 
+
 // Start quiz
 startBtn.addEventListener("click", function () {
+
+  // Stop both sounds if quiz is restarted
+  music.pause();
+  backgroundMusic.pause();
+
+  if (fadeInterval) {
+    clearInterval(fadeInterval);
+    fadeInterval = null;
+  }
+
+  // Reset music
   music.currentTime = 0;
+  backgroundMusic.currentTime = secondMusicStart;
+
+  music.volume = 0.3;
+  backgroundMusic.volume = 0;
+
+  crossfadeStarted = false;
+
+  // Play first music
   music
     .play()
-    .then(() => console.log("Music started!"))
+    .then(() => console.log("First music started!"))
     .catch((error) => console.log("Music error:", error));
 
   intro.hidden = true;
@@ -49,6 +148,7 @@ startBtn.addEventListener("click", function () {
 
   showQuestion();
 });
+
 
 // Display question
 function showQuestion() {
@@ -122,6 +222,7 @@ function showQuestion() {
     answerOptions.appendChild(button);
   });
 }
+
 
 // Display final result
 function showResult() {
