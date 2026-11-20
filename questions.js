@@ -6,7 +6,7 @@ const questions = [
   {
     question: "1. What if you woke up tomorrow and discovered that nobody could lie to you anymore?",
     options: [
-      { text: "i will meet neesha.", monsters: ["vampire"] },
+      { text: "i will take it as an advantage.", monsters: ["vampire"] },
       { text: "I'd finally know who I could trust.", monsters: ["werewolf", "siren"] },
       { text: "I'd be fascinated by how the world changes.", monsters: ["witch"] },
       { text: "I'd wonder if people could still hide the truth without lying.", monsters: ["witch", "siren"] }
